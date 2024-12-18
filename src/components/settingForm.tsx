@@ -19,9 +19,9 @@ export default function SettingForm({
     profile: Profile;
 }) {
     const router = useRouter();
-    const fileInRef = useRef<HTMLInputElement>();
+    const fileInRef = useRef<HTMLInputElement>(null);
     const [file, setfile] = useState<File | null>(null);
-    const [avatarUrl, setAvatarUrl] = useState('');
+    const [avatarUrl, setAvatarUrl] = useState(profile.avatar);
     useEffect(() => {
         if (file) {
             const data = new FormData()
@@ -46,18 +46,18 @@ export default function SettingForm({
             // redirect('/profile');
             //upsert means either update or insert 
         }}>
-            <input type="hidden" name="avatar" value={avatarUrl}/>
+            <input type="hidden" name="avatar" value={avatarUrl || ''}/>
             <div className="flex gap-4 items-center">
                 <div>
-                    <div className=" size-24 rounded-full aspect-square shadow-md shadow-gray-400">
-                        <img className="size-24 rounded-full overflow-hidden object-cover " src={avatarUrl} alt=""/>
+                    <div className="bg-gray-400 size-24 rounded-full overflow-hidden aspect-square shadow-md shadow-gray-400">
+                        <img className="" src={avatarUrl || ''} alt=""/>
                     </div>
                 </div>
                 <div>
                     <input type="file"
                         ref={fileInRef}
                         className="hidden"
-                        onChange={ev => setfile(ev.target.files?.[0])} />
+                        onChange={ev => setfile(ev.target.files?.[0] || null)} />
                     <Button
                         variant="surface"
                         type="button"

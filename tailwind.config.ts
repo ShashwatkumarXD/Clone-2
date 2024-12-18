@@ -9,8 +9,8 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        'ig-red': "var(--red)",
+        'ig-orange': "var(--orange)",
       },
     },
   },

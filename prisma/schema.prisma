@@ -22,3 +22,13 @@ model Profile {
   subtitle String?
   bio String?
 }
+
+model Post{
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  author String
+  image String
+  description String
+  likesCount Int @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

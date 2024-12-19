@@ -1,15 +1,17 @@
 import { auth } from "@/auth";
-import PostsGrid from "@/components/PostsGrid";
+// import PostsGrid from "@/components/PostsGrid";
+import ProfilePosts from "@/components/ProfilePosts";
 import { prisma } from "@/db";
 import { CheckIcon, ChevronLeft, CogIcon } from "lucide-react";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function ProfilePage() {
 
     // this how we export aur data from db to the client side.
     // to be remember: FindFirstOrThrow is used to fetch first table from the db and if not throw error.
     const session = await auth();
-    const profile = await prisma.profile.findFirstOrThrow({where: {email:session?.user?.email as string}})
+    const profile = await prisma.profile.findFirstOrThrow({ where: { email: session?.user?.email as string } })
     //
 
     return (
@@ -54,8 +56,12 @@ export default async function ProfilePage() {
                 </div>
             </section>
             <section className="mt-4">
-                <PostsGrid/>
+                <Suspense fallback="Loading...">
+                    <ProfilePosts email={profile.email} />
+                </Suspense>
             </section>
         </main>
     );
 }
+
+//this <Suspense fallback="Loading..."></Suspense> is used to refresh the fast, So that i could render faster.

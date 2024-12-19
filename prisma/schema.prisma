@@ -14,21 +14,38 @@ datasource db {
 }
 
 model Profile {
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  email String @unique
-  avatar String?
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  avatar   String?
   username String?
-  name String?
+  name     String?
   subtitle String?
-  bio String?
+  bio      String?
 }
 
-model Post{
-  id    String @id @default(auto()) @map("_id") @db.ObjectId
-  author String
-  image String
+model Post {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  author      String
+  image       String
   description String
-  likesCount Int @default(0)
+  likesCount  Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Comment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  author    String
+  text      String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Like{
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  postId    String   @db.ObjectId
+  author    String
+  createdAt DateTime @default(now())
+
 }

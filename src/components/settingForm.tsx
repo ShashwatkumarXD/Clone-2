@@ -1,7 +1,7 @@
 'use client'
 import { updateProfile } from "@/actions";
-import { auth } from "@/auth";
-import { prisma } from "@/db";
+// import { auth } from "@/auth";
+// import { prisma } from "@/db";
 import { Profile } from "@prisma/client";
 import { TextField, TextArea, Button } from "@radix-ui/themes";
 import { CloudUpload } from 'lucide-react';
@@ -13,15 +13,14 @@ import { useEffect, useRef, useState } from "react";
 
 
 export default function SettingForm({
-    userEmail, profile
+    profile,
 }: {
-    userEmail: string;
-    profile: Profile;
+    profile: Profile | null;
 }) {
     const router = useRouter();
     const fileInRef = useRef<HTMLInputElement>(null);
     const [file, setfile] = useState<File | null>(null);
-    const [avatarUrl, setAvatarUrl] = useState(profile.avatar);
+    const [avatarUrl, setAvatarUrl] = useState(profile?.avatar || null);
     useEffect(() => {
         if (file) {
             const data = new FormData()
@@ -32,7 +31,7 @@ export default function SettingForm({
             }).then(response =>{
                 response.json().then(url => {
                     setAvatarUrl(url);
-                })
+                });
             });
         }
     }, [file]);
@@ -40,7 +39,7 @@ export default function SettingForm({
     return (
         <form action={async (data: FormData) => {
             //below we created a function for data
-            await updateProfile(data, userEmail);
+            await updateProfile(data);
             router.push('/profile');
             router.refresh();
             // redirect('/profile');
@@ -70,22 +69,22 @@ export default function SettingForm({
             <p className="mt-2 font-bold">username</p>
             <TextField.Root
                 name="username"
-                defaultValue={profile.username || ''}
+                defaultValue={profile?.username || ''}
                 placeholder="your_username" />
             <p className="mt-2 font-bold">name</p>
             <TextField.Root
                 name="name"
-                defaultValue={profile.name || ''}
+                defaultValue={profile?.name || ''}
                 placeholder="shashwat kumar" />
             <p className="mt-2 font-bold">subtitle</p>
             <TextField.Root
                 name="subtitle"
-                defaultValue={profile.subtitle || ''}
+                defaultValue={profile?.subtitle || ''}
                 placeholder="username" />
             <p className="mt-2 font-bold">bio</p>
             <TextArea name="bio"
-                defaultValue={profile.bio || ''} />
-            <div className="mt-2">
+                defaultValue={profile?.bio || ''} />
+            <div className="mt-2 flex justify-center">
                 <Button variant="solid">Save Setting</Button>
             </div>
 

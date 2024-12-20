@@ -25,16 +25,19 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: React.ReactNode;
 }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Theme>
+          {modal}
           <div className="flex min-h-screen">
-            <DesktopNav/>
-            <div className="pb-24 lg:pb-4 pt-8 px-4 lg:px-8 flex justify-around w-full"> 
+            <DesktopNav />
+            <div className="pb-24 lg:pb-4 pt-8 px-4 lg:px-8 flex justify-around w-full">
               <div className="">
                 {children}
               </div>

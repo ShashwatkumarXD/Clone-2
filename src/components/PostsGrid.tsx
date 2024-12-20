@@ -16,9 +16,9 @@ export default function PostsGrid({posts}:{posts:Post[]}) {
                 className="flex -ml-4"
                 columnClassName="pl-4"
             >
-                {posts.map((post, index) => (
+                {posts.map((post) => (
                     <Link href={`/posts/${post.id}`}
-                        key={index} // Unique key for each child
+                        key={post.id} // Unique key for each child
                         className="mb-4 rounded-md shadow-md shadow-gray-600"
                     >
                         <img className="rounded-sm" src={post.image} alt="post" />

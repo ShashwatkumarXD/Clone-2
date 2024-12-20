@@ -6,7 +6,7 @@ import { HeartIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function LikesInfo({ post,sessionLike }: { post: Post,sessionLike:Like }) {
+export default function LikesInfo({ post,sessionLike }: { post: Post,sessionLike:Like|null }) {
     const router = useRouter();
     const [likedByMe, setLikedByMe] = useState(!!sessionLike);
     return (

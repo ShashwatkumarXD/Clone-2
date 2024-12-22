@@ -113,3 +113,7 @@ export async function getSinglePostData(postId:string){
             post,authorProfile,comments,commentsAuthor, myLike
         };
 }
+
+export async function followProfile(data: FormData){
+    const profileId = data.get('profileId');
+}

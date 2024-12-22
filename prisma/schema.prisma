@@ -42,10 +42,17 @@ model Comment {
   updatedAt DateTime @updatedAt
 }
 
-model Like{
+model Like {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   postId    String   @db.ObjectId
   author    String
   createdAt DateTime @default(now())
+}
 
+model Follower {
+  id                    String   @id @default(auto()) @map("_id") @db.ObjectId
+  followingProfileEmail String
+  followingProfileId    String   @db.ObjectId
+  followProfileId       String   @db.ObjectId
+  createdAt             DateTime @default(now())
 }

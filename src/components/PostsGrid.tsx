@@ -21,7 +21,7 @@ export default function PostsGrid({posts}:{posts:Post[]}) {
                         key={post.id} // Unique key for each child
                         className="mb-4 rounded-md shadow-md shadow-gray-600"
                     >
-                        <img className="rounded-sm" src={post.image} alt="post" />
+                        <img className="rounded-md" src={post.image} alt="post" />
                     </Link>
                 ))}
             </Masonry>

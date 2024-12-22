@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 // import PostsGrid from "@/components/PostsGrid";
 import ProfilePosts from "@/components/ProfilePosts";
 import { prisma } from "@/db";
-import { Profile } from "@prisma/client";
+import { Follower, Profile } from "@prisma/client";
 import { Button } from "@radix-ui/themes";
 import { CheckIcon, ChevronLeft, CogIcon, UserPlusIcon } from "lucide-react";
 import Link from "next/link";
@@ -13,9 +13,11 @@ import FollowButton from "./FollowButton";
 export default function ProfilePageContent({
     profile,
     isOurProfile = false,
+    ourFollow=null,
 }: {
     profile: Profile;
     isOurProfile?: boolean;
+    ourFollow: Follower | null;
 }) {
     return (
         <main>
@@ -59,7 +61,9 @@ export default function ProfilePageContent({
 
             {!isOurProfile && (
                 <section className=" flex justify-center">
-                    <FollowButton/>
+                    <FollowButton 
+                    ourFollow={ourFollow}
+                    profileIdToFollow={profile.id}/>
                 </section>
             )}
 

@@ -4,9 +4,14 @@ import { auth } from "./auth";
 import { prisma } from "./db";
 import { uniq } from 'lodash';
 
-export async function getSessionEmailOrThrow(){
+export async function getSessionEmail(): Promise<string | null | undefined> {
     const session = await auth();
-    const userEmail =session?.user?.email;
+    return session?.user?.email;
+}
+
+export async function getSessionEmailOrThrow(): Promise<string>{
+    // const session = await auth();
+    const userEmail = await getSessionEmail();
     if(!userEmail){
         throw 'not logged in';
     }
@@ -114,6 +119,29 @@ export async function getSinglePostData(postId:string){
         };
 }
 
-export async function followProfile(data: FormData){
-    const profileId = data.get('profileId');
+export async function followProfile(profileIdToFollow: string){
+    // const profileIdToFollow = data.get('profileIdToFollow');
+    const sessionProfile = await prisma.profile.findFirstOrThrow({
+        where:{email:await getSessionEmailOrThrow()},
+    });
+    await prisma.follower.create({
+        data: {
+            followingProfileEmail: sessionProfile.email,
+            followingProfileId: sessionProfile.id,
+            followProfileId: profileIdToFollow,
+        }
+    });
+}
+
+export async function unfollowProfile(profileIdToFollow: string){
+    // const profileIdToFollow = data.get('profileIdToFollow');
+    const sessionProfile = await prisma.profile.findFirstOrThrow({
+        where:{email:await getSessionEmailOrThrow()},
+    });
+    await prisma.follower.deleteMany({
+        where: {
+            followingProfileEmail: sessionProfile.email,
+            followingProfileId: sessionProfile.id,
+        }
+    });
 }

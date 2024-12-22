@@ -26,12 +26,14 @@ export default function CreatePage() {
         }
     }, [file]);
     return (
-        <form action={async data=>{
-            const id = await postEntry(data);
-            router.push(`/post/${id}`);
-            router.refresh();
-        }}>
-            <input type="hidden" name="image" value={imageUrl}/>
+        <form
+            className="max-w-md mx-auto"
+            action={async data => {
+                const id = await postEntry(data);
+                router.push(`/post/${id}`);
+                router.refresh();
+            }}>
+            <input type="hidden" name="image" value={imageUrl} />
             <div className="flex flex-col gap-4">
                 {/* <div>
                     <div className="w-64 min-h-64 p-2 bg-gray-400 rounded-md relative">
@@ -54,7 +56,7 @@ export default function CreatePage() {
                     </div>
                 </div> */}
                 <div>
-                    <div className="w-64 min-h-64 p-2 bg-gray-400 rounded-md relative">
+                    <div className=" min-h-64 p-2 bg-gray-400 rounded-md relative">
                         {imageUrl && (
                             <img src={imageUrl} className="rounded-md" alt="" />
                         )}

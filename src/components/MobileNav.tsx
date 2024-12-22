@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function MobileNav() {
     return (
         <div className="block md:hidden fixed bottom-0 left-0 right-0">
-            <div className="flex text-gray-700 *:flex *:items-center">
+            <div className="flex text-gray-700 *:flex *:items-center px-2">
                 <div
                     className="pl-2 bg-white rounded-t-xl w-full relative z-10 *:size-12 *:flex *:items-center *:justify-center justify-around">
                     <Link href="/" className="">
